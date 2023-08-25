@@ -17,7 +17,7 @@ const Form = () => {
     // }
 
     const add =()=>{
-      let newValue = {quantity, description}
+      let newValue = {quantity, description, date:new Date().toLocaleDateString(), time:new Date().toLocaleTimeString()}
       // console.log(newValue);
       setData(newValue)
       console.log(data);
@@ -34,9 +34,8 @@ const Form = () => {
 
   return (
     <>
-
-    <div id='trip'>
-    <h3 className='what'>What do you need for your 😍 trip?</h3>
+    <div id='trip' className='mx-auto text-center'>
+    <h3 className='what mx-auto'>What do you need for your 😍 trip?</h3>
     <select value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}>
     {Array.from({length: 20}, (_, i) => i + 1).map 
     (num => (
@@ -48,16 +47,32 @@ const Form = () => {
       </div>
   
 
-
+      
+      <table id='tripy' className='table table-striped  text-light'>
+          <tr>
+              <td>S/N</td>
+              <td>QUANTITY</td>
+              <td>DESCRIPTION</td>
+              <td>DATE</td>
+              <td>TIME</td>
+              <td>ACTIONS</td>
+          </tr>
   {
-      data.map((item)=>(
-        <div id='tripy'>
-        {item.quantity}
-        {item.description}
-        <button onClick={()=> deleteItem(index)}>❌</button>
-        </div>
+      data.map((item,index)=>(
+      
+        <tr>
+        <td>{index+1}</td>
+        <td>{item.quantity}</td>
+        <td>{item.description}</td>
+        <td>{item.date}</td>
+        <td>{item.time}</td>
+        <td> <button onClick={()=> deleteItem(index)}>❌</button></td>
+        </tr>
+       
       ))
   }
+  
+  </table>
     </>
   )
 }
